@@ -50,16 +50,7 @@ const File = ({index, fileName, selectedFileIndex=0}) => {
     );
 }
 
-const RecentFiles = () => {
-    let fileNames = [
-        "one.txt",
-        "two.txt",
-        "three.txt",
-        "four.txt"
-    ];
-
-    let selectedFileIndex=2;
-
+const RecentFiles = ({fileNames = ["untitled.py"], selectedFileIndex=0}) => {
     return (
         <Col style={{height:"44vh", textAlign: "left" }}>
             <Row>

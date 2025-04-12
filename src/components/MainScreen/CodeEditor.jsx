@@ -1,4 +1,5 @@
-// src/components/CodeEditor.jsx
+// src/components/MainScreen/CodeEditor.jsx
+
 import React from 'react';
 import Editor from '@monaco-editor/react';
 

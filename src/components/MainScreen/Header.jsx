@@ -21,12 +21,16 @@ const Header = () => {
                     style={{ padding: '5px', fontSize: '14px' }}
                 />
                 <a name="saveFile" id="saveFile" role="button">
-                    💾
+                    &nbsp; 
+                    <i className='bi bi-floppy fs-5'></i> 
                 </a>
             </div>
 
             <div style={{marginLeft:'auto', alignSelf: 'right'}}>
-            🔗 &nbsp; <b>. . .</b>
+                <i className='bi bi-link fs-3'></i> 
+                &nbsp; &nbsp; 
+                <i className='bi bi-three-dots fs-3'></i> 
+                &nbsp; 
             </div>
         </div>
     );

@@ -4,6 +4,7 @@
 // Importing CSS and Bootstrap
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { Container, Row} from 'react-bootstrap';
 
@@ -16,8 +17,8 @@ import SideBar from './components/SideBar/SideBar';
 
 function App() {
     return (
-        <Container className="App" fluid>
-            <Row>
+        <Container className="App px-0" fluid>
+            <Row className='mx-0'>
                 <SideBar colSize={2}/>
                 <MainScreen colSize={10}/>
             </Row>
