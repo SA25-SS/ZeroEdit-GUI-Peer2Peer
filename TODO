@@ -1,0 +1,7 @@
+MainScreen:
+    - Popup Create:
+        - Link
+        - User Permission
+    - PopUp Attach:
+        - Settings
+        - Three Dots
