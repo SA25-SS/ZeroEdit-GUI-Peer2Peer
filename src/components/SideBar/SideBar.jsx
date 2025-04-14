@@ -12,6 +12,7 @@ import ActiveUsers from './ActiveUsers'
 import SettingsButton from './SettingsButton'
 
 import SettingsPanel from "./SettingsPanel"
+import PermissionsPopup from "./PermissionsPopup"
 
 import './SideBar.css';
 
@@ -24,9 +25,21 @@ function SettingsPopup({ show, handleClose, currentSettings, handleSaveSettings 
 }
 
 const SideBar = ({colSize = 2}) => {
-    const [settingsPopup, setShowSettingsPopup] = useState(false);
+    const [showSettingsPopup, setShowSettingsPopup] = useState(false);
     const handleOpenSettings = () => setShowSettingsPopup(true);
     const handleCloseSettings = () => setShowSettingsPopup(false);
+
+    const [selectedUser, setSelectedUser] = useState();
+    const [showPermissionsPopup, setShowPermissionsPopup] = useState(false);
+    const handleOpenPermissions = (index) => {
+        setSelectedUser(index);
+        setShowPermissionsPopup(true);
+    };
+
+    const handleClosePermissions = () => {
+        setShowPermissionsPopup(false)
+        setSelectedUser();
+    };
     
     const [settings, saveSettings] = useState({
         confirmBeforeSave:  true,
@@ -44,12 +57,19 @@ const SideBar = ({colSize = 2}) => {
         <Col xs={colSize} >
             <Toolbar />
             <RecentFiles />
-            <ActiveUsers />
+            <ActiveUsers handleOpenPermissions={handleOpenPermissions}/>
             <SettingsButton handleClick={handleOpenSettings}/>
+
+            <PermissionsPopup 
+                show={showPermissionsPopup}
+                onHide={handleClosePermissions}
+                modalSize={"md"}
+                selectedUser={selectedUser}
+            />
 
             {/* Modal for Settings Popup */}
             <SettingsPopup 
-                show={settingsPopup}
+                show={showSettingsPopup}
                 handleClose={handleCloseSettings}
 
                 currentSettings={settings}
