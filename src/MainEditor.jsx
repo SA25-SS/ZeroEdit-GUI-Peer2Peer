@@ -2,7 +2,7 @@
 // import logo from './logo.svg';
 
 // Importing CSS and Bootstrap
-import './App.css';
+import './MainEditor.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -15,7 +15,8 @@ import React from 'react';
 import MainScreen from './components/MainScreen/MainScreen';
 import SideBar from './components/SideBar/SideBar';
 
-function App() {
+//Router
+function MainEditor() {
     return (
         <Container className="App px-0" fluid>
             <Row className='mx-0'>
@@ -26,4 +27,4 @@ function App() {
     );
 }
 
-export default App;
+export default MainEditor;
