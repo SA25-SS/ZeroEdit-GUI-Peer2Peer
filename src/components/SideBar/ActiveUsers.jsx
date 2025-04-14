@@ -6,7 +6,7 @@ import React from 'react';
 // Importing CSS and Bootstrap
 import { Col, Row, Button } from 'react-bootstrap';
 
-const File = ({index, userName, fileOwnerIndex=0, selfIndex=0}) => {
+const User = ({index, userName, fileOwnerIndex=0, selfIndex=0, handleOpenPermissions}) => {
     let user;
 
     return (
@@ -22,7 +22,7 @@ const File = ({index, userName, fileOwnerIndex=0, selfIndex=0}) => {
                     </span>
                     <b>
                         <button 
-                            onClick={() => console.log(`Editing Permissions of ${userName}`)} 
+                            onClick={() => {console.log(`Editing Permissions of ${userName}`); handleOpenPermissions(userName)}} 
                             className="user-permissions-menu" 
                             disabled={(index === fileOwnerIndex) || (index === selfIndex)}
                         >
@@ -35,16 +35,27 @@ const File = ({index, userName, fileOwnerIndex=0, selfIndex=0}) => {
     );
 }
 
-const ActiveUsers = ({usersList = ["Shreyas A.", "Sudhanva S", "Rakshita G. A.", "Mohaneesh R. P."], ownerIndex=0, selfIndex=0}) => {
+const ActiveUsers = ({usersList = ["Shreyas A.", "Sudhanva S", "Rakshita G. A.", "Mohaneesh R. P."], ownerIndex=0, selfIndex=0, handleOpenPermissions}) => {
     
     return (
         <Col style={{height:"44vh", textAlign: "left"}}>
             <Row>
-                <h5>Recent Files</h5>
+                <h5>Online Users</h5>
             </Row>
 
             {
-                usersList.map((file, index) => <File key={index} index={index} userName={file} fileOwnerIndex={ownerIndex} selfIndex={selfIndex}/>)
+                usersList.map((user, index) => {
+                    return (
+                        <User 
+                            key={index}
+                            index={index}
+                            userName={user}
+                            fileOwnerIndex={ownerIndex}
+                            selfIndex={selfIndex}
+                            handleOpenPermissions={handleOpenPermissions}
+                        />
+                    );
+                })
             }
 
         </Col>

@@ -1,11 +1,17 @@
 // RegisterBox.js
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const RegisterBox = () => {
+  const navigate = useNavigate();
+
+  const handleRegister = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+    navigate('/login'); // Navigate to the /login route
+  };
   return (
     <div style={{ backgroundColor: '#eef4fa', minHeight: '100vh' }}>
       <Container
@@ -29,7 +35,7 @@ const RegisterBox = () => {
               >
                 ZeroEdit
               </h2>
-              <Form className="flex-grow-1 d-flex flex-column justify-content-center">
+              <Form className="flex-grow-1 d-flex flex-column justify-content-center" onSubmit={handleRegister}>
                 <Form.Group className="mb-3" controlId="formFullName">
                   <Form.Label style={{ fontSize: '1rem', fontWeight: 500 }}>Full Name:</Form.Label>
                   <Form.Control type="text" placeholder="Username" />

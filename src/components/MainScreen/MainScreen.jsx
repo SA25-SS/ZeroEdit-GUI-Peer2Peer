@@ -5,9 +5,12 @@ import React, { useState } from 'react';
 
 // Importing components
 import CodeEditor from './CodeEditor';
+import OutputArea from './OutputArea';
+
 import Header from './Header';
 
 import DarkModeSettings from "./DarkModeSettings"
+import LinkPopup from "./LinkPopup";
 
 import { Row, Col, Modal } from 'react-bootstrap';
 
@@ -21,18 +24,18 @@ function DarkModeSettingsPopup({ show, handleClose }) {
     );
 }
 
-//TODO : Move to New Component
-function ShareLinkPopup({ show, handleClose }) {
-    return (
-        <Modal show={show} onHide={handleClose}>
-            <div className='container'>
-                <div className="row p-5">
-                    Container for Link Sharing
-                </div>
-            </div>
-        </Modal>
-    );
-}
+// //TODO : Move to New Component
+// function ShareLinkPopup({ show, handleClose }) {
+//     return (
+//         <Modal show={show} onHide={handleClose}>
+//             <div className='container'>
+//                 <div className="row p-5">
+//                     Container for Link Sharing
+//                 </div>
+//             </div>
+//         </Modal>
+//     );
+// }
 
 const MainScreen = ({ colSize = 10}) => {
     // Dark Mode Settings Popup Modal Configuration
@@ -41,6 +44,7 @@ const MainScreen = ({ colSize = 10}) => {
     const handleCloseDarkModeSettings = () => setShowDarkModeSettingsPopup(false);
 
     // Share Link Popup Modal Configuration
+    const [shareLink, setShareLink] = useState("http://192.168.1.10/join?id=waeiofjnsdkjbuaoadgjcvnoakkpowekj132r2kjkoj24ho2")
     const [shareLinkPopup, setShowShareLinkPopup] = useState(false);
     const handleOpenShareLink = () => setShowShareLinkPopup(true);
     const handleCloseShareLink = () => setShowShareLinkPopup(false);
@@ -59,19 +63,22 @@ const MainScreen = ({ colSize = 10}) => {
                     handleOpenShareLink={handleOpenShareLink}
                 />
             </Row>
-            <Row style={{height:"92vh", marginTop:"1vh"}}>
+            <Row style={{height:"60vh", paddingTop:"1vh"}}>
                 <CodeEditor language='python' value={code} onChange={handleEditorChange} />
-
+            </Row>
+            <Row style={{borderTop:"1px solid black", height:"90%", maxHeight:"33vh"}}>
+                <OutputArea value='coolness is within us'/>
+            </Row>
                 {/* Modals for Popups */}
                 <DarkModeSettingsPopup 
                     show={darkModeSettingsPopup} 
                     handleClose={handleCloseDarkModeSettings} 
                 />
-                <ShareLinkPopup  
+                <LinkPopup  
                     show={shareLinkPopup} 
-                    handleClose={handleCloseShareLink} 
+                    onHide={handleCloseShareLink}
+                    link={shareLink}
                 />
-            </Row>
         </Col>
     );
 }
