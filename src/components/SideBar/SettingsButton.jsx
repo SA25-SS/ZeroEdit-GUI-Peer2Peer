@@ -4,7 +4,7 @@ import React from "react";
 // Importing CSS and Bootstrap
 import { Row, Col, Button } from 'react-bootstrap';
 
-const Settings = () => {
+const SettingsButton = ({handleClick}) => {
     return (
         <Row style={{height:"4vh"}}>
             <Col >
@@ -18,6 +18,7 @@ const Settings = () => {
                         justifyContent:"start",
                         textAlign:"start"
                     }}
+                    onClick={handleClick}
                 >
                     <i className="bi bi-gear"></i> &nbsp;
                     Settings
@@ -27,4 +28,4 @@ const Settings = () => {
     );
 }
 
-export default Settings;
+export default SettingsButton;

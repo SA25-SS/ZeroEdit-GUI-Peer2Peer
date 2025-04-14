@@ -1,0 +1,16 @@
+MainScreen:
+    - Popup Create:
+        - ShareLink:
+            - Create Button
+                OR
+            - Input Box Disabled
+            - Copy Button
+        - User Permission:
+            - Toggle Buttons
+                1. Read
+                2. Write
+                3. Delete
+            - Save button
+        - Confirm Save FileName:
+            - Text
+            - Yes/No
