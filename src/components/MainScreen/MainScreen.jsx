@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 
 // Importing components
 import CodeEditor from './CodeEditor';
+import OutputArea from './OutputArea';
+
 import Header from './Header';
 
 import DarkModeSettings from "./DarkModeSettings"
@@ -59,9 +61,12 @@ const MainScreen = ({ colSize = 10}) => {
                     handleOpenShareLink={handleOpenShareLink}
                 />
             </Row>
-            <Row style={{height:"92vh", marginTop:"1vh"}}>
+            <Row style={{height:"60vh", paddingTop:"1vh"}}>
                 <CodeEditor language='python' value={code} onChange={handleEditorChange} />
-
+            </Row>
+            <Row style={{borderTop:"1px solid black", height:"90%", maxHeight:"33vh"}}>
+                <OutputArea value='coolness is within us'/>
+            </Row>
                 {/* Modals for Popups */}
                 <DarkModeSettingsPopup 
                     show={darkModeSettingsPopup} 
@@ -71,7 +76,6 @@ const MainScreen = ({ colSize = 10}) => {
                     show={shareLinkPopup} 
                     handleClose={handleCloseShareLink} 
                 />
-            </Row>
         </Col>
     );
 }

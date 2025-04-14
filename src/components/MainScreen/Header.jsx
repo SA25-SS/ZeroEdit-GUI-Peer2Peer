@@ -20,9 +20,23 @@ const Header = ({handleOpenDarkModeSettings, handleOpenShareLink = (() => consol
                     onChange={(e) => setFileName(e.target.value)}
                     style={{ padding: '5px', fontSize: '14px' }}
                 />
+                &nbsp;
                 <button name="saveFile" id="saveFile">
-                    &nbsp;
                     <i className='bi bi-floppy fs-5'></i>
+                    &nbsp;
+                    Save
+                </button>
+                &nbsp; 
+                <button name="Compile/Run" id="Compile/Run" className='text-success'>
+                    <i className='bi bi-play-circle-fill fs-5'></i>
+                    &nbsp;
+                    Run
+                </button>
+                &nbsp; 
+                <button name="Compile/Run" id="Compile/Run" className='text-danger'>
+                    <i className='bi bi-stop-circle-fill fs-5'></i>
+                    &nbsp;
+                    Stop
                 </button>
             </div>
 
