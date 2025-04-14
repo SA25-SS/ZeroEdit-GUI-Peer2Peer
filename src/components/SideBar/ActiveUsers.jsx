@@ -22,7 +22,7 @@ const File = ({index, userName, fileOwnerIndex=0, selfIndex=0}) => {
                     </span>
                     <b>
                         <button 
-                            onClick={() => console.log(`Remove file: ${userName}`)} 
+                            onClick={() => console.log(`Editing Permissions of ${userName}`)} 
                             className="user-permissions-menu" 
                             disabled={(index === fileOwnerIndex) || (index === selfIndex)}
                         >
@@ -35,7 +35,7 @@ const File = ({index, userName, fileOwnerIndex=0, selfIndex=0}) => {
     );
 }
 
-const ActiveUsers = ({usersList = ["Shreyas A.", "Sudhanva S", "Rakshita G. A.", "Mohaneesh R. P."], ownerIndex=0, selfIndex=1}) => {
+const ActiveUsers = ({usersList = ["Shreyas A.", "Sudhanva S", "Rakshita G. A.", "Mohaneesh R. P."], ownerIndex=0, selfIndex=0}) => {
     
     return (
         <Col style={{height:"44vh", textAlign: "left"}}>
