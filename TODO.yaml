@@ -4,13 +4,29 @@ MainScreen:
             - Create Button
                 OR
             - Input Box Disabled
-            - Copy Button
-        - User Permission:
-            - Toggle Buttons
-                1. Read
-                2. Write
-                3. Delete
-            - Save button
+            - Copy Button     
         - Confirm Save FileName:
-            - Text
+            - Text (Do you realy)
             - Yes/No
+    - Popup Attach:
+        - User Permission
+    
+    - Logic Add:
+        - File Upload/Open
+        - States Manage:
+            - Dark Mode
+            - Settings Persist
+        - Login:
+            - Login Token Store
+        - Register:
+            - Success
+            - Validate
+            - Failure
+        - Authenticate:
+            - Failure redirect
+        - Main Logic :
+            - Link Generation
+            - Link negotiation
+            - File Sharing
+            - Permission Management
+            - Code Execution

@@ -7,7 +7,7 @@ const CodeEditor = ({ language = "python", value = "", onChange }) => {
   return (
     <div style={{ overflow: 'hidden', paddingLeft:"5px", paddingRight:"0px", paddingBottom:"0px"}}>
       <Editor
-        height="100%"
+        height="99%"
         theme="vs-light"
         defaultLanguage={language}
         defaultValue={value}
