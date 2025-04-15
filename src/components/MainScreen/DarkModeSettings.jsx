@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./DarkModeSettings.css";
 
 function DarkModeSettings() {
   // State variables to track the selected mode for each setting
