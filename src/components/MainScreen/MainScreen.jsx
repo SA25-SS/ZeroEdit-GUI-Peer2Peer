@@ -10,7 +10,7 @@ import OutputArea from './OutputArea';
 import Header from './Header';
 
 import DarkModeSettings from "./DarkModeSettings"
-import LinkPopup from "./LinkPopup";
+import LinkPopup from "./ShareLinkPopup";
 
 import { Row, Col, Modal } from 'react-bootstrap';
 
