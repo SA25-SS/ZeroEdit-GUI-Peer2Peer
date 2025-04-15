@@ -1,10 +1,14 @@
 // src/components/MainScreen/Header.jsx
 
-import React, { useState, Modal } from 'react';
+import React, { useState } from 'react';
 
-const Header = ({handleOpenDarkModeSettings, handleOpenShareLink = (() => console.log("Open popup of Share link"))}) => {
+const Header = ({ 
+    handleOpenDarkModeSettings, 
+    handleOpenShareLink = (() => console.log("Open popup of Share link")), 
+    handleFileSave 
+}) => {
     const [fileName, setFileName] = useState('untitled.txt');
-    
+
     return (
         <div id="Main-Screen-Header" style={{ display: 'flex', alignItems: 'center', width: "100%", borderBottom: '0.1px solid #000' }}>
             <h2 className='text-start' style={{ paddingRight: '25px' }}>
@@ -21,18 +25,18 @@ const Header = ({handleOpenDarkModeSettings, handleOpenShareLink = (() => consol
                     style={{ padding: '5px', fontSize: '14px' }}
                 />
                 &nbsp;
-                <button name="saveFile" id="saveFile">
+                <button name="saveFile" id="saveFile" onClick={handleFileSave}>
                     <i className='bi bi-floppy fs-5'></i>
                     &nbsp;
                     Save
                 </button>
-                &nbsp; 
+                &nbsp;
                 <button name="Compile/Run" id="Compile/Run" className='text-success'>
                     <i className='bi bi-play-circle-fill fs-5'></i>
                     &nbsp;
                     Run
                 </button>
-                &nbsp; 
+                &nbsp;
                 <button name="Compile/Run" id="Compile/Run" className='text-danger'>
                     <i className='bi bi-stop-circle-fill fs-5'></i>
                     &nbsp;
