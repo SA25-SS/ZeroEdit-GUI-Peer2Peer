@@ -1,12 +1,18 @@
 // src/components/MainScreen/CodeEditor.jsx
 
-import React, {TextArea} from 'react';
+import React from 'react';
 
 const OutputArea = ({ value="" }) => {
   return (
-    <div style={{ maxHeight:"28vh", padding:"0px 0px 0px 5px",  textAlign:"left"}}>
+    <div className='p-2 text-start' style={{ maxHeight:"28vh"}}>
       <h6>Output</h6>
-      <textarea name="output" id="output" style={{height:"100%", width:"100%", border:"0"}} placeholder='The output will be shown here' disabled value={value}></textarea>
+      <textarea
+        className="h-100 w-100 border-0 bg-black text-light p-2" 
+        placeholder='The output will be shown here'
+        value={value}
+        style={{fontFamily : "monospace"}}
+        readOnly
+      />
     </div>
   );
 };

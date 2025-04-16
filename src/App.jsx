@@ -4,34 +4,57 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import LoginBox from './LoginBox';
 import RegisterBox from './RegisterBox';
-import MainEditor from './MainEditor';
+import MainIDE from './MainIDE';
 
-import { loadSavedGlobalTheme, loadSavedEditorTheme } from "./utils"
+import { loadSavedGlobalTheme, saveGlobalTheme, loadSavedEditorTheme, saveEditorTheme } from "./utils"
 
 function App() {
-	const [globalThemeDark, setGlobalThemeDark] = useState(loadSavedGlobalTheme);
-	const [editorThemeDark, setEditorThemeDark] = useState(loadSavedEditorTheme);
+	// const default_dark_theme = true;
+
+	const [globalThemeDark, setGlobalThemeDark] = useState(loadSavedGlobalTheme());
+	const [editorThemeDark, setEditorThemeDark] = useState(loadSavedEditorTheme());
 
 	// Save to localStorage whenever it changes
-	useEffect(() => {
-		localStorage.setItem('GlobalThemeDark', globalThemeDark);
-	}, [globalThemeDark]);
-
-	useEffect(() => {
-		localStorage.setItem('EditorThemeDark', editorThemeDark);
-	}, [editorThemeDark]);
+	useEffect(() => saveGlobalTheme(globalThemeDark), [globalThemeDark]);
+	useEffect(() => saveEditorTheme(editorThemeDark), [editorThemeDark]);
+	
+	// // Testing  Toggle between dark and light modes
+	// useEffect(() => {
+	// 	setGlobalThemeDark(default_dark_theme);
+	// 	setEditorThemeDark(default_dark_theme);
+	// }, [default_dark_theme]);
 
 	return (
 		<Router>
 			<Routes>
 				{/* Redirect root "/" to "/login" */}
-				<Route path="/" element={<MainEditor globalTheme={globalThemeDark} editorTheme={editorThemeDark} setTheme={setGlobalThemeDark} setEditorTheme={setEditorThemeDark} />} />
+				<Route
+					path="/"
+					element={
+						<MainIDE
+							globalThemeDark={globalThemeDark}
+							editorThemeDark={editorThemeDark}
+							setGlobalTheme={setGlobalThemeDark}
+							setEditorTheme={setEditorThemeDark}
+						/>
+					}
+				/>
 
 				{/* Login page */}
-				<Route path="/login" element={<LoginBox />} />
+				<Route
+					path="/login"
+					element={
+						<LoginBox />
+					}
+				/>
 
 				{/* Register page */}
-				<Route path="/register" element={<RegisterBox />} />
+				<Route
+					path="/register"
+					element={
+						<RegisterBox />
+					}
+				/>
 			</Routes>
 		</Router>
 	);

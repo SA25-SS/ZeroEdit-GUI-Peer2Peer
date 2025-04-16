@@ -3,12 +3,11 @@
 import React from 'react';
 import Editor from '@monaco-editor/react';
 
-const CodeEditor = ({ language = "python", value = "", onChange }) => {
+const CodeEditor = ({ language = "python", value = "", onChange, editorThemeDark=false }) => {
   return (
-    <div style={{ overflow: 'hidden', paddingLeft:"5px", paddingRight:"0px", paddingBottom:"0px"}}>
+    <div className='px-1 pb-1' style={{ overflow: 'hidden'}}>
       <Editor
-        height="99%"
-        theme="vs-light"
+        theme={(editorThemeDark && "vs-dark") || "vs-light"}
         defaultLanguage={language}
         defaultValue={value}
         onChange={onChange}
