@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button, FormControl, InputGroup } from 'react-bootstrap';
 
-function LinkPopup({ show, onHide, link }) {
+function ShareLinkPopup({ show, onHide, link }) {
   // If you always use the same link, you can hardcode it here instead of passing as a prop.
   // But using props allows flexibility (parent can supply the link).
   
@@ -35,4 +35,4 @@ function LinkPopup({ show, onHide, link }) {
   );
 }
 
-export default LinkPopup;
+export default ShareLinkPopup;
