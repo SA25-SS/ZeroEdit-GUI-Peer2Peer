@@ -25,7 +25,7 @@ function DarkModeSettingsPopup({ show, handleClose }) {
     );
 }
 
-const MainScreen = ({ colSize = 10 }) => {
+const MainScreen = ({ colSize = 10, globalTheme, editorTheme, setTheme, setEditorTheme }) => {
     // Dark Mode Settings Popup Modal Configuration
     const [darkModeSettingsPopup, setShowDarkModeSettingsPopup] = useState(false);
     const handleOpenDarkModeSettings = () => setShowDarkModeSettingsPopup(true);
