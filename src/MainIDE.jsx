@@ -2,7 +2,7 @@
 // import logo from './logo.svg';
 
 // Importing CSS and Bootstrap
-import './MainEditor.css';
+import './MainIDE.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -16,7 +16,7 @@ import MainScreen from './components/MainScreen/MainScreen';
 import SideBar from './components/SideBar/SideBar';
 
 //Router
-function MainEditor() {
+function MainIDE() {
     return (
         <Container className="App px-0" fluid>
             <Row className='mx-0'>
@@ -27,4 +27,4 @@ function MainEditor() {
     );
 }
 
-export default MainEditor;
+export default MainIDE;

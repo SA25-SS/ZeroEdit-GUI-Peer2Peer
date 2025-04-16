@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import LoginBox from './LoginBox';
 import RegisterBox from './RegisterBox';
-import MainEditor from './MainEditor';
+import MainIDE from './MainIDE';
 
 import { loadSavedGlobalTheme, loadSavedEditorTheme } from "./utils"
 
@@ -25,7 +25,7 @@ function App() {
 		<Router>
 			<Routes>
 				{/* Redirect root "/" to "/login" */}
-				<Route path="/" element={<MainEditor globalTheme={globalThemeDark} editorTheme={editorThemeDark} setTheme={setGlobalThemeDark} setEditorTheme={setEditorThemeDark} />} />
+				<Route path="/" element={<MainIDE globalTheme={globalThemeDark} editorTheme={editorThemeDark} setTheme={setGlobalThemeDark} setEditorTheme={setEditorThemeDark} />} />
 
 				{/* Login page */}
 				<Route path="/login" element={<LoginBox />} />
