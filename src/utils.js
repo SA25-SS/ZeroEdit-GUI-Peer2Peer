@@ -1,2 +1,2 @@
-const loadSavedGlobalTheme = () => localStorage.getItem('GlobalThemeDark') === 'true';
-const loadSavedEditorTheme = () => localStorage.getItem('EditorThemeDark') === 'true';
+export const loadSavedGlobalTheme = () => localStorage.getItem('GlobalThemeDark') === 'true';
+export const loadSavedEditorTheme = () => localStorage.getItem('EditorThemeDark') === 'true';
