@@ -13,19 +13,24 @@ import DarkModeSettings from "./DarkModeSettings"
 import LinkPopup from "./ShareLinkPopup";
 import ConfirmModal from '../ConfirmBox';
 
-import { Row, Col, Modal, Button } from 'react-bootstrap';
+import { Row, Col, Modal } from 'react-bootstrap';
 
 import './MainScreen.css';
 
-function DarkModeSettingsPopup({ show, handleClose }) {
+function DarkModeSettingsPopup({ show, handleClose, globalThemeDark, editorThemeDark, setGlobalTheme, setEditorTheme }) {
     return (
         <Modal show={show} onHide={handleClose}>
-            <DarkModeSettings onHide={handleClose} />
+            <DarkModeSettings
+                globalThemeDark={globalThemeDark}
+                editorThemeDark={editorThemeDark}
+                setGlobalTheme={setGlobalTheme}
+                setEditorTheme={setEditorTheme}
+            />
         </Modal>
     );
 }
 
-const MainScreen = ({ colSize = 10, globalTheme, editorTheme, setTheme, setEditorTheme }) => {
+const MainScreen = ({ colSize = 10, globalThemeDark=false, editorThemeDark=false, setGlobalTheme, setEditorTheme }) => {
     // Dark Mode Settings Popup Modal Configuration
     const [darkModeSettingsPopup, setShowDarkModeSettingsPopup] = useState(false);
     const handleOpenDarkModeSettings = () => setShowDarkModeSettingsPopup(true);
@@ -54,10 +59,11 @@ const MainScreen = ({ colSize = 10, globalTheme, editorTheme, setTheme, setEdito
                     handleOpenDarkModeSettings={handleOpenDarkModeSettings}
                     handleOpenShareLink={handleOpenShareLink}
                     handleFileSave={() => setShowConfirm(true)}
+                    globalThemeDark={globalThemeDark}
                 />
             </Row>
             <Row style={{ height: "60vh", paddingTop: "1vh" }}>
-                <CodeEditor language='python' value={code} onChange={handleEditorChange} />
+                <CodeEditor language='python' value={code} onChange={handleEditorChange} editorThemeDark={editorThemeDark}/>
             </Row>
             <Row style={{ borderTop: "1px solid black", height: "90%", maxHeight: "33vh" }}>
                 <OutputArea value='coolness is within us' />
@@ -66,6 +72,10 @@ const MainScreen = ({ colSize = 10, globalTheme, editorTheme, setTheme, setEdito
             <DarkModeSettingsPopup
                 show={darkModeSettingsPopup}
                 handleClose={handleCloseDarkModeSettings}
+                globalThemeDark={globalThemeDark}
+                editorThemeDark={editorThemeDark}
+                setGlobalTheme={setGlobalTheme}
+                setEditorTheme={setEditorTheme}
             />
             <LinkPopup
                 show={shareLinkPopup}
