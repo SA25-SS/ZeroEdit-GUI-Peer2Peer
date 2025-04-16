@@ -4,12 +4,11 @@ import React, { useState } from 'react';
 
 const Header = ({ 
     handleOpenDarkModeSettings, 
-    handleOpenShareLink = (() => console.log("Open popup of Share link")), 
+    handleOpenShareLink, 
     handleFileSave,
-    globalThemeDark=true
+    globalThemeDark,
+    IDEVars
 }) => {
-    const [fileName, setFileName] = useState('untitled.txt');
-
     return (
         <div id="Main-Screen-Header" className='d-flex align-items-center w-100 border-bottom'>
             <h2 className='text-start pe-4'>
@@ -21,8 +20,8 @@ const Header = ({
                 <input
                     type="text"
                     placeholder="Enter file name"
-                    value={fileName}
-                    onChange={(e) => setFileName(e.target.value)}
+                    value={IDEVars.fileName.get()}
+                    onChange={(e) => {IDEVars.fileName.set(e.target.value); console.log(e.target.value);}}
                     style={{ padding: '5px', fontSize: '14px' }}
                 />
                 &nbsp;

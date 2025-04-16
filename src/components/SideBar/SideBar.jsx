@@ -24,7 +24,7 @@ function SettingsPopup({ show, handleClose, currentSettings, handleSaveSettings 
     );
 }
 
-const SideBar = ({colSize = 2, globalThemeDark}) => {
+const SideBar = ({colSize = 2, globalThemeDark, openFileName}) => {
     const [showSettingsPopup, setShowSettingsPopup] = useState(false);
     const handleOpenSettings = () => setShowSettingsPopup(true);
     const handleCloseSettings = () => setShowSettingsPopup(false);
@@ -56,7 +56,7 @@ const SideBar = ({colSize = 2, globalThemeDark}) => {
     return (
         <Col xs={colSize} >
             <Toolbar globalThemeDark={globalThemeDark}/>
-            <RecentFiles />
+            <RecentFiles openFileName={openFileName} />
             <ActiveUsers handleOpenPermissions={handleOpenPermissions}/>
             <SettingsButton handleClick={handleOpenSettings}/>
 

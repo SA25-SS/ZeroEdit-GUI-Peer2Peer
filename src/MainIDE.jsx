@@ -16,12 +16,12 @@ import MainScreen from './components/MainScreen/MainScreen';
 import SideBar from './components/SideBar/SideBar';
 
 //Router
-function MainIDE({ globalThemeDark, editorThemeDark, setGlobalTheme, setEditorTheme }) {
+function MainIDE({ DarkTheme, IDEVars }) {
     return (
-        <Container className={`App px-0 ${(globalThemeDark && "bg-dark text-light") || "bg-light text-dark"}`} fluid>
+        <Container className={`App px-0 ${(DarkTheme.global.get() && "bg-dark text-light") || "bg-light text-dark"}`} fluid>
             <Row className='mx-0'>
-                <SideBar colSize={2} globalThemeDark={globalThemeDark} />
-                <MainScreen colSize={10} globalThemeDark={globalThemeDark} editorThemeDark={editorThemeDark} setGlobalTheme={setGlobalTheme} setEditorTheme={setEditorTheme}/>
+                <SideBar colSize={2} globalThemeDark={DarkTheme.global.get()} openFileName={IDEVars.fileName.get()}/>
+                <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars}/>
             </Row>
         </Container>
     );
