@@ -1,16 +1,8 @@
 MainScreen:
     - Popup Create:
-        - ShareLink:
-            - Create Button
-                OR
-            - Input Box Disabled
-            - Copy Button     
         - Confirm Save FileName:
             - Text (Do you realy)
             - Yes/No
-    - Popup Attach:
-        - User Permission
-    
     - Logic Add:
         - File Upload/Open
         - States Manage:
