@@ -3,25 +3,29 @@ export const loadSaved = (key) => localStorage.getItem(key);
 export const save = (key, value) => localStorage.setItem(key, value);
 
 
-// Read Theme from localStorage
+// Read/Write Theme from localStorage
 export const loadSavedGlobalTheme = () => loadSaved('GlobalThemeDark') === 'true';
 export const loadSavedEditorTheme = () => loadSaved('EditorThemeDark') === 'true';
-
-// Write Theme to localStorage
+//
 export const saveGlobalTheme = (globalThemeDark) => save('GlobalThemeDark', globalThemeDark === true);
 export const saveEditorTheme = (editorThemeDark) => save('EditorThemeDark', editorThemeDark === true);
 
+// Read/Write settings from localStorage
+export const loadSavedSettings = () => JSON.parse(loadSaved("settings"));;
+export const saveSettings = (settings) => save("settings", JSON.stringify(settings));
+
+
 // File Download
-export const downloadFile = ({fileName, fileContent}) => {
+export const downloadFile = ({ fileName, fileContent }) => {
     const blob = new Blob([fileContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-  
+
     const element = document.createElement('a');
     element.href = url;
     element.download = fileName;
     document.body.appendChild(element);
     element.click();
-  
+
     document.body.removeChild(element);
     URL.revokeObjectURL(url); // Clean up the blob URL
 };
