@@ -15,7 +15,7 @@ import ConfirmModal from '../ConfirmBox';
 
 import { Row, Col, Modal } from 'react-bootstrap';
 
-import {downloadFile} from "../../utils"
+import { downloadFile } from "../../utils"
 
 import './MainScreen.css';
 
@@ -48,7 +48,10 @@ const MainScreen = ({
     const [showConfirmSave, setShowConfirmSave] = useState(false);
     const handleSave = () => {
         console.log(`File ${IDEVars.fileName.value} saved ✅`);
-        downloadFile({fileName:IDEVars.fileName.value, fileContent:IDEVars.editorContent.value});
+        downloadFile({
+            fileName: IDEVars.fileName.value,
+            fileContent: IDEVars.editorContent.value
+        });
     };
 
     return (

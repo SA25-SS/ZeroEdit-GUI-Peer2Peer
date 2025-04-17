@@ -1,10 +1,15 @@
 // Read from localStorage
-export const loadSavedGlobalTheme = () => localStorage.getItem('GlobalThemeDark') === 'true';
-export const loadSavedEditorTheme = () => localStorage.getItem('EditorThemeDark') === 'true';
+export const loadSaved = (key) => localStorage.getItem(key);
+export const save = (key, value) => localStorage.setItem(key, value);
 
-// Write to localStorage
-export const saveGlobalTheme = (globalThemeDark) => localStorage.setItem('GlobalThemeDark', globalThemeDark === true);
-export const saveEditorTheme = (editorThemeDark) => localStorage.setItem('EditorThemeDark', editorThemeDark === true);
+
+// Read Theme from localStorage
+export const loadSavedGlobalTheme = () => loadSaved('GlobalThemeDark') === 'true';
+export const loadSavedEditorTheme = () => loadSaved('EditorThemeDark') === 'true';
+
+// Write Theme to localStorage
+export const saveGlobalTheme = (globalThemeDark) => save('GlobalThemeDark', globalThemeDark === true);
+export const saveEditorTheme = (editorThemeDark) => save('EditorThemeDark', editorThemeDark === true);
 
 // File Download
 export const downloadFile = ({fileName, fileContent}) => {
@@ -19,4 +24,27 @@ export const downloadFile = ({fileName, fileContent}) => {
   
     document.body.removeChild(element);
     URL.revokeObjectURL(url); // Clean up the blob URL
+};
+
+//File Upload
+export const triggerFileUpload = ({ onFileRead, onFileName }) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.style.display = 'none';
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            onFileName?.(file.name);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                onFileRead?.(event.target.result);
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    document.body.appendChild(fileInput);
+    fileInput.click();
+    document.body.removeChild(fileInput);
 };

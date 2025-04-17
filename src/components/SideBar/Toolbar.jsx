@@ -6,6 +6,8 @@ import React, { useRef } from 'react';
 // Importing CSS and Bootstrap
 import { Col, Row, Button } from 'react-bootstrap';
 
+import {triggerFileUpload} from "../../utils"
+
 const ToolbarButton = ({ icon = "plus", iconSize = 6, globalThemeDark = false, onClick }) => {
     return (
         <Col xs={3}>
@@ -17,25 +19,11 @@ const ToolbarButton = ({ icon = "plus", iconSize = 6, globalThemeDark = false, o
 }
 
 const Toolbar = ({ globalThemeDark = false, IDEVars }) => {
-    const fileInputRef = useRef();
-
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-        console.log("File uploaded");
-        IDEVars.editorContent.set(e.target.result);
-    };
-
     const handleUploadFile = () => {
-        fileInputRef.current.click();
-    };
-
-    const handleFileUploaded = (e) => {
-        const file = e.target.files[0];
-
-        if(file){
-            IDEVars.fileName.set(file.name)
-            fileReader.readAsText(file);
-        }
+        triggerFileUpload({
+            onFileRead: IDEVars.editorContent.set,
+            onFileName: IDEVars.fileName.set,
+        });
     };
 
     return (
@@ -44,12 +32,6 @@ const Toolbar = ({ globalThemeDark = false, IDEVars }) => {
             <ToolbarButton icon='upload' globalThemeDark={globalThemeDark} onClick={handleUploadFile} />
             <ToolbarButton icon='search' globalThemeDark={globalThemeDark} />
             <ToolbarButton icon='trash' globalThemeDark={globalThemeDark} />
-            <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                onChange={handleFileUploaded}
-            />
         </Row>
     );
 }
