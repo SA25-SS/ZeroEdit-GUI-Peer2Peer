@@ -15,6 +15,8 @@ import ConfirmModal from '../ConfirmBox';
 
 import { Row, Col, Modal } from 'react-bootstrap';
 
+import {downloadFile} from "../../utils"
+
 import './MainScreen.css';
 
 function DarkModeSettingsPopup({ show, handleClose, DarkTheme }) {
@@ -27,8 +29,8 @@ function DarkModeSettingsPopup({ show, handleClose, DarkTheme }) {
     );
 }
 
-const MainScreen = ({ 
-    colSize = 10, 
+const MainScreen = ({
+    colSize = 10,
     DarkTheme,
     IDEVars
 }) => {
@@ -45,7 +47,8 @@ const MainScreen = ({
 
     const [showConfirmSave, setShowConfirmSave] = useState(false);
     const handleSave = () => {
-        console.log("File saved ✅");
+        console.log(`File ${IDEVars.fileName.value} saved ✅`);
+        downloadFile({fileName:IDEVars.fileName.value, fileContent:IDEVars.editorContent.value});
     };
 
     return (
@@ -55,13 +58,13 @@ const MainScreen = ({
                     handleOpenDarkModeSettings={handleOpenDarkModeSettings}
                     handleOpenShareLink={handleOpenShareLink}
                     handleFileSave={() => setShowConfirmSave(true)}
-                    globalThemeDark={DarkTheme.global.get()}
+                    globalThemeDark={DarkTheme.global.value}
                     IDEVars={IDEVars}
                 />
             </Row>
             <Row style={{ height: "60vh", paddingTop: "1vh" }}>
-                <CodeEditor 
-                    editorThemeDark={DarkTheme.editor.get()}
+                <CodeEditor
+                    editorThemeDark={DarkTheme.editor.value}
                     IDEVars={IDEVars}
                 />
             </Row>
