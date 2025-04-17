@@ -6,7 +6,7 @@ import React, { useRef } from 'react';
 // Importing CSS and Bootstrap
 import { Col, Row, Button } from 'react-bootstrap';
 
-import {triggerFileUpload} from "../../utils"
+import {triggerFileUpload} from "../../utils/files"
 
 const ToolbarButton = ({ icon = "plus", iconSize = 6, globalThemeDark = false, onClick }) => {
     return (

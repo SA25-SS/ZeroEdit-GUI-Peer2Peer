@@ -16,7 +16,7 @@ import PermissionsPopup from "./PermissionsPopup"
 
 import './SideBar.css';
 
-import { saveSettings, loadSavedSettings } from "../../utils"
+import { saveSettings, loadSavedSettings } from "../../utils/storage"
 
 function SettingsPopup({ show, handleClose, currentSettings, saveNewSettings }) {
     return (

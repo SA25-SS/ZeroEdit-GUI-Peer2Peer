@@ -6,7 +6,7 @@ import LoginBox from './LoginBox';
 import RegisterBox from './RegisterBox';
 import MainIDE from './MainIDE';
 
-import { loadSavedGlobalTheme, saveGlobalTheme, loadSavedEditorTheme, saveEditorTheme } from "./utils"
+import { loadSavedGlobalTheme, saveGlobalTheme, loadSavedEditorTheme, saveEditorTheme } from "./utils/storage"
 
 //Router
 function App() {

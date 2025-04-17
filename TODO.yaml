@@ -1,7 +1,5 @@
 MainScreen:
     - Logic Add:
-        - States Manage:
-            - Settings Persist
         - Login:
             - Login Token Store
         - Register:
