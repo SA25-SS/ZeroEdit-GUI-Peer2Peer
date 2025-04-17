@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 function DarkModeSettings({ DarkTheme }) {
 	// State variables to track the selected mode for each setting
-	const [websiteMode, setWebsiteMode] = useState(DarkTheme.global.get());
-	const [editorMode, setEditorMode] = useState(DarkTheme.editor.get());
+	const [websiteMode, setWebsiteMode] = useState(DarkTheme.global.value);
+	const [editorMode, setEditorMode] = useState(DarkTheme.editor.value);
 
 	const handleSave = () => {
 		// You can do something more interesting here, like:

@@ -9,6 +9,9 @@ const Header = ({
     globalThemeDark,
     IDEVars
 }) => {
+
+    
+
     return (
         <div id="Main-Screen-Header" className='d-flex align-items-center w-100 border-bottom'>
             <h2 className='text-start pe-4'>
@@ -20,7 +23,7 @@ const Header = ({
                 <input
                     type="text"
                     placeholder="Enter file name"
-                    value={IDEVars.fileName.get()}
+                    value={IDEVars.fileName.value}
                     onChange={(e) => {IDEVars.fileName.set(e.target.value); console.log(e.target.value);}}
                     style={{ padding: '5px', fontSize: '14px' }}
                 />

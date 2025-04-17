@@ -23,7 +23,7 @@ const LANGUAGES = {
 
 
 const CodeEditor = ({ editorThemeDark = false, IDEVars }) => {
-    const [name, ext] = IDEVars.fileName.get().split(/\.(?=[^\.]+$)/);
+    const [name, ext] = IDEVars.fileName.value.split(/\.(?=[^\.]+$)/);
     const editorRef = useRef(null);
 
     const handleEditorChange = (content) => {
@@ -42,9 +42,11 @@ const CodeEditor = ({ editorThemeDark = false, IDEVars }) => {
     return (
         <div className='px-1 pb-1' style={{ overflow: 'hidden' }}>
             <Editor
+                defaultValue=''
+                defaultLanguage='javascript'
                 theme={(editorThemeDark && "vs-dark") || "vs-light"}
-                language={LANGUAGES[ext] || "txt"}
-                defaultValue={IDEVars.editorContent.get()}
+                language={LANGUAGES[ext] || "javascript"}
+                value={IDEVars.editorContent.value}
                 onChange={handleEditorChange}
                 onMount={handleEditorDidMount}
                 options={{
@@ -55,6 +57,7 @@ const CodeEditor = ({ editorThemeDark = false, IDEVars }) => {
                     },
                     scrollBeyondLastLine: false,
                     automaticLayout: true,
+                    suggest:true
                 }}
             />
         </div>

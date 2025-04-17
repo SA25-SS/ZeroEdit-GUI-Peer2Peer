@@ -24,7 +24,7 @@ function SettingsPopup({ show, handleClose, currentSettings, handleSaveSettings 
     );
 }
 
-const SideBar = ({colSize = 2, globalThemeDark, openFileName}) => {
+const SideBar = ({colSize = 2, DarkTheme, IDEVars}) => {
     const [showSettingsPopup, setShowSettingsPopup] = useState(false);
     const handleOpenSettings = () => setShowSettingsPopup(true);
     const handleCloseSettings = () => setShowSettingsPopup(false);
@@ -52,11 +52,10 @@ const SideBar = ({colSize = 2, globalThemeDark, openFileName}) => {
     })
 
     //TODO : Add the UserList Here, with Owner and selfIndex states.
-    
     return (
         <Col xs={colSize} >
-            <Toolbar globalThemeDark={globalThemeDark}/>
-            <RecentFiles openFileName={openFileName} />
+            <Toolbar globalThemeDark={DarkTheme.global.value} IDEVars={IDEVars}/>
+            <RecentFiles openFileName={IDEVars.fileName.value} />
             <ActiveUsers handleOpenPermissions={handleOpenPermissions}/>
             <SettingsButton handleClick={handleOpenSettings}/>
 
