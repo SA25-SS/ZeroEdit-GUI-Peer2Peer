@@ -9,24 +9,47 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Container, Row } from 'react-bootstrap';
 
 //Import the React framework
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Importing components
 import MainScreen from './components/MainScreen/MainScreen';
 import SideBar from './components/SideBar/SideBar';
 
-function MainIDE({ DarkTheme }) {
-    const [fileName, setFileName] = useState("somethingcool.js");
-    const [editorContent, setEditorContent] = useState("console.log('Something Cool')");
+import { Text } from 'automerge'
+import { useDocument } from '@automerge/automerge-repo-react-hooks';
+import { updateText } from '@automerge/automerge/next';
+
+function MainIDE({ DarkTheme, docUrl }) {
+    // const [fileName, _setFileName] = useState("somethingcool.js");
+    // const [editorContent, _setEditorContent] = useState("console.log('Something Cool')");
     const [outputContent, setOutputContent] = useState("Something Cool");
+
+    // Automerge Doc
+    const [doc, changeDoc] = useDocument(docUrl);
+
+    const setFileName = (value) => changeDoc((d) => {
+        // console.log(d);
+        // updateText(d["fileName"], ["fileName"], value);
+        d.fileName = value;
+        // _setFileName(value);
+    });
+    
+    const setEditorContent = (value) => changeDoc((d) => {
+        // console.log(d);
+        // updateText(d["fileContent"], ["fileContent"], value);
+        d.fileContent = value;
+        // _setEditorContent(value);
+    });
 
     const IDEVars = {
         fileName: {
-            value: fileName,
+            // value: doc?.fileName ?? fileName,
+            value: doc?.fileName ?? "somethingcool.js",
             set: setFileName
         },
         editorContent: {
-            value: editorContent,
+            // value: doc?.fileContent ?? editorContent,
+            value: doc?.fileContent ?? "console.log('Something Cool')",
             set: setEditorContent
         },
         outputContent: {
@@ -38,8 +61,8 @@ function MainIDE({ DarkTheme }) {
     return (
         <Container className={`App px-0 ${(DarkTheme.global.value && "bg-dark text-light") || "bg-light text-dark"}`} fluid>
             <Row className='mx-0'>
-                <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} />
-                <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars} />
+                <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} />
+                <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} />
             </Row>
         </Container>
     );

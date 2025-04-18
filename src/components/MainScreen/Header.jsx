@@ -2,15 +2,20 @@
 
 import React, { useState } from 'react';
 
-const Header = ({ 
-    handleOpenDarkModeSettings, 
-    handleOpenShareLink, 
+import { useDocument } from '@automerge/automerge-repo-react-hooks';
+import { updateText } from '@automerge/automerge/next';
+
+const Header = ({
+    handleOpenDarkModeSettings,
+    handleOpenShareLink,
     handleFileSave,
     globalThemeDark,
     IDEVars
 }) => {
-
-    
+    // const setFileName = (e) => {
+    //     console.log(e.target.value);
+    //     IDEVars.fileName.set(e.target.value); 
+    // }
 
     return (
         <div id="Main-Screen-Header" className='d-flex align-items-center w-100 border-bottom'>
@@ -24,7 +29,7 @@ const Header = ({
                     type="text"
                     placeholder="Enter file name"
                     value={IDEVars.fileName.value}
-                    onChange={(e) => {IDEVars.fileName.set(e.target.value); console.log(e.target.value);}}
+                    onChange={(e) => IDEVars.fileName.set(e.target.value)}
                     style={{ padding: '5px', fontSize: '14px' }}
                 />
                 &nbsp;

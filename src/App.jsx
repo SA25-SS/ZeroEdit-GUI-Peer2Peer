@@ -9,7 +9,7 @@ import MainIDE from './MainIDE';
 import { loadSavedGlobalTheme, saveGlobalTheme, loadSavedEditorTheme, saveEditorTheme } from "./utils/storage"
 
 //Router
-function App() {
+function App({docUrl}) {
 	// Dark Mode Settings
 	const [globalThemeDark, setGlobalThemeDark] = useState(loadSavedGlobalTheme());
 	const [editorThemeDark, setEditorThemeDark] = useState(loadSavedEditorTheme());
@@ -38,6 +38,7 @@ function App() {
 					element={
 						<MainIDE
 							DarkTheme={DarkTheme}
+							docUrl={docUrl}
 						/>
 					}
 				/>

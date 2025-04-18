@@ -19,7 +19,7 @@ import { downloadFile } from "../../utils/files"
 
 import './MainScreen.css';
 
-function DarkModeSettingsPopup({ show, handleClose, DarkTheme }) {
+function DarkModeSettingsPopup({ show, handleClose, DarkTheme, docUrl }) {
     return (
         <Modal show={show} onHide={handleClose}>
             <DarkModeSettings
@@ -40,7 +40,8 @@ const MainScreen = ({
     const handleCloseDarkModeSettings = () => setShowDarkModeSettingsPopup(false);
 
     // Share Link Popup Modal Configuration
-    const [shareLink, setShareLink] = useState("http://192.168.1.10/join?id=waeiofjnsdkjbuaoadgjcvnoakkpowekj132r2kjkoj24ho2")
+    // const [shareLink, setShareLink] = useState(document.location.href);
+    const shareLink = document.location.href;
     const [shareLinkPopup, setShowShareLinkPopup] = useState(false);
     const handleOpenShareLink = () => setShowShareLinkPopup(true);
     const handleCloseShareLink = () => setShowShareLinkPopup(false);
