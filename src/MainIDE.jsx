@@ -20,35 +20,23 @@ import { useDocument } from '@automerge/automerge-repo-react-hooks';
 import { updateText } from '@automerge/automerge/next';
 
 function MainIDE({ DarkTheme, docUrl }) {
-    // const [fileName, _setFileName] = useState("somethingcool.js");
-    // const [editorContent, _setEditorContent] = useState("console.log('Something Cool')");
+    const [doc, changeDoc] = useDocument(docUrl);
     const [outputContent, setOutputContent] = useState("Something Cool");
 
-    // Automerge Doc
-    const [doc, changeDoc] = useDocument(docUrl);
-
     const setFileName = (value) => changeDoc((d) => {
-        // console.log(d);
-        // updateText(d["fileName"], ["fileName"], value);
         d.fileName = value;
-        // _setFileName(value);
     });
     
     const setEditorContent = (value) => changeDoc((d) => {
-        // console.log(d);
-        // updateText(d["fileContent"], ["fileContent"], value);
         d.fileContent = value;
-        // _setEditorContent(value);
     });
 
     const IDEVars = {
         fileName: {
-            // value: doc?.fileName ?? fileName,
             value: doc?.fileName ?? "somethingcool.js",
             set: setFileName
         },
         editorContent: {
-            // value: doc?.fileContent ?? editorContent,
             value: doc?.fileContent ?? "console.log('Something Cool')",
             set: setEditorContent
         },
