@@ -5,17 +5,18 @@ import React, { useState } from 'react';
 const Header = ({ 
     handleOpenDarkModeSettings, 
     handleOpenShareLink = (() => console.log("Open popup of Share link")), 
-    handleFileSave 
+    handleFileSave,
+    globalThemeDark=true
 }) => {
     const [fileName, setFileName] = useState('untitled.txt');
 
     return (
-        <div id="Main-Screen-Header" style={{ display: 'flex', alignItems: 'center', width: "100%", borderBottom: '0.1px solid #000' }}>
-            <h2 className='text-start' style={{ paddingRight: '25px' }}>
-                Zero Edit
+        <div id="Main-Screen-Header" className='d-flex align-items-center w-100 border-bottom'>
+            <h2 className='text-start pe-4'>
+                ZeroEdit
             </h2>
 
-            <div style={{ alignItems: 'left', gap: '10px' }}>
+            <div className="g-2">
                 <b style={{ alignSelf: 'center' }}>File :</b> &nbsp;
                 <input
                     type="text"
@@ -25,7 +26,7 @@ const Header = ({
                     style={{ padding: '5px', fontSize: '14px' }}
                 />
                 &nbsp;
-                <button name="saveFile" id="saveFile" onClick={handleFileSave}>
+                <button name="saveFile" id="saveFile" onClick={handleFileSave} className={`${(globalThemeDark && 'text-light')}`}>
                     <i className='bi bi-floppy fs-5'></i>
                     &nbsp;
                     Save
@@ -45,10 +46,10 @@ const Header = ({
             </div>
 
             <div style={{ marginLeft: 'auto', alignSelf: 'right' }}>
-                <button name="shareLink" id="shareLink" onClick={handleOpenShareLink}>
+                <button name="shareLink" id="shareLink" onClick={handleOpenShareLink} className={`${(globalThemeDark && 'text-light')}`}>
                     <i className='bi bi-link fs-3'></i>
                 </button>
-                <button name="threeDots" id="threeDots" onClick={handleOpenDarkModeSettings}>
+                <button name="threeDots" id="threeDots" onClick={handleOpenDarkModeSettings} className={`${(globalThemeDark && 'text-light')}`}>
                     <i className='bi bi-three-dots fs-3'></i>
                 </button>
             </div>

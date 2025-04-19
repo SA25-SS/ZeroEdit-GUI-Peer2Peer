@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 
-function DarkModeSettings() {
+function DarkModeSettings({ globalThemeDark, editorThemeDark, setGlobalTheme, setEditorTheme }) {
 	// State variables to track the selected mode for each setting
-	const [websiteMode, setWebsiteMode] = useState("Dark");
-	const [editorMode, setEditorMode] = useState("Dark");
+	const [websiteMode, setWebsiteMode] = useState(globalThemeDark);
+	const [editorMode, setEditorMode] = useState(editorThemeDark);
 
 	const handleSave = () => {
 		// You can do something more interesting here, like:
 		// - Storing preferences in localStorage
 		// - Sending data to a server via an API call
 		// - Triggering a global theme switch, etc.
-		alert(`Saving preferences:
-      Website Mode: ${websiteMode}
-      Code Editor Mode: ${editorMode}`);
+		setGlobalTheme(websiteMode);
+		setEditorTheme(editorMode);
+
+		console.log(`Saved preference : { Website Mode: ${websiteMode}, Code Editor Mode: ${editorMode} }`);
 	};
 
 	return (
@@ -21,16 +22,18 @@ function DarkModeSettings() {
 
 			<div className="option-row">
 				<label>Website</label>
-				<div className="toggle-group">
+				<div className="">
 					<button
-						className={`toggle-button ${websiteMode === "Dark" ? "active" : ""}`}
-						onClick={() => setWebsiteMode("Dark")}
+						className={`btn ${websiteMode && "active bg-dark text-light"}`}
+						onClick={() => setWebsiteMode(true)}
+						disabled={websiteMode}
 					>
 						Dark
 					</button>
 					<button
-						className={`toggle-button ${websiteMode === "Light" ? "active" : ""}`}
-						onClick={() => setWebsiteMode("Light")}
+						className={`btn ${!websiteMode && "active"}`}
+						onClick={() => setWebsiteMode(false)}
+						disabled={!websiteMode}
 					>
 						Light
 					</button>
@@ -39,16 +42,18 @@ function DarkModeSettings() {
 
 			<div className="option-row">
 				<label>Code Editor</label>
-				<div className="toggle-group">
+				<div className="">
 					<button
-						className={`toggle-button ${editorMode === "Dark" ? "active" : ""}`}
-						onClick={() => setEditorMode("Dark")}
+						className={`btn ${editorMode && "active bg-dark text-light"}`}
+						onClick={() => setEditorMode(true)}
+						disabled={editorMode}
 					>
 						Dark
 					</button>
 					<button
-						className={`toggle-button ${editorMode === "Light" ? "active" : ""}`}
-						onClick={() => setEditorMode("Light")}
+						className={`btn ${!editorMode && "active"}`}
+						onClick={() => setEditorMode(false)}
+						disabled={!editorMode}
 					>
 						Light
 					</button>
