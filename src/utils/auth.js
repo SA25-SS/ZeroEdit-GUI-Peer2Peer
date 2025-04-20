@@ -1,5 +1,5 @@
 import { apiRequest } from "./api";
-import { clearAuthToken, saveAuthToken } from "./storage";
+import { clearAuthToken, clearUsername, saveAuthToken } from "./storage";
 import CryptoJS from "crypto-js";
 
 // Verify token via apiRequest
@@ -21,6 +21,7 @@ export const login = async ({ username, password }) => {
 
 export const logout = () => {
   clearAuthToken();
+  clearUsername();
 };
 
 export const register = async ({ name, username, age, email, password }) => {

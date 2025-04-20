@@ -5,22 +5,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import CryptoJS from 'crypto-js';
-
 import { login, logout } from './utils/auth';
+import { saveUsername } from './utils/storage';
 
 const LoginBox = () => {
     const navigate = useNavigate();
 
     const handleLogin = async (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault();
 
         const username = event.target.formUsername.value;
         const password = event.target.formPassword.value;
         
         try {
             await login({username, password})
-            .then(() => navigate('/'))
+            .then(() => saveUsername(username))
+            .then(() => navigate('/'));
             // .catch(error => alert(error))
         } catch (error) {
             console.error('Error during login:', error);

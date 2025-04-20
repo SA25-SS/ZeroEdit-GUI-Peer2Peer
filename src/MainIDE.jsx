@@ -18,9 +18,8 @@ import LoadingScreen from './LoadingScreen'
 
 // import { Text } from 'automerge'
 import { useDocument } from '@automerge/automerge-repo-react-hooks';
-// import { updateText } from '@automerge/automerge/next';
 
-import { loadSavedAuthToken } from './utils/storage';
+import { loadSavedAuthToken, loadSavedUsername } from './utils/storage';
 import { verifyToken } from './utils/auth';
 import { Navigate } from 'react-router-dom';
 
@@ -32,9 +31,9 @@ function MainIDE({ DarkTheme, docUrl }) {
     // const [outputContent, _setOutputContent] = useState("Something Cool");
 
     // Automerge Doc
-    const [doc, changeDoc] = useDocument(docUrl);
-    1
+    const [doc, changeDoc] = useDocument(docUrl);    
     const authToken = loadSavedAuthToken();
+    const currentUserName = loadSavedUsername();
 
     useEffect(() => {
         const checkAuthToken = async () => {
@@ -108,7 +107,7 @@ function MainIDE({ DarkTheme, docUrl }) {
     return (
         <Container className={`App px-0 ${(DarkTheme.global.value && "bg-dark text-light") || "bg-light text-dark"}`} fluid>
             <Row className='mx-0'>
-                <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} />
+                <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} userName={currentUserName}/>
                 <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} />
             </Row>
         </Container>

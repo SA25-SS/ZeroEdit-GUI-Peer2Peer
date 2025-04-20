@@ -21,3 +21,8 @@ export const saveSettings = (settings) => save("settings", JSON.stringify(settin
 export const loadSavedAuthToken = () => JSON.parse(loadSaved("auth.token"));;
 export const saveAuthToken = (token) => save("auth.token", JSON.stringify(token));
 export const clearAuthToken = () => clear("auth.token");
+
+// Read/Write username
+export const loadSavedUsername = () => JSON.parse(loadSaved("username"));;
+export const saveUsername = (token) => save("username", JSON.stringify(token));
+export const clearUsername = () => clear("username");
