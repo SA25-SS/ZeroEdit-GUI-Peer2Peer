@@ -26,9 +26,10 @@ const Header = ({
 
     const compileCode = async (btnElement) => {
         btnElement.disabled = true;
+        // btnElement.addClassName("")
         
         let language = LANGUAGES[IDEVars.fileName.ext] || "javascript";
-        let compileResult = await compile(language, IDEVars.editorContent.value, IDEVars.fileName, "stdin");
+        let compileResult = await compile(language, IDEVars.editorContent.value, IDEVars.fileName.value, "stdin");
 
         if(compileResult.status === "success"){
             if(compileResult.error)
@@ -64,7 +65,7 @@ const Header = ({
                     Save
                 </button>
                 &nbsp;
-                <button name="Compile/Run" id="Compile/Run" className='text-success' onClick={(e) => compileCode(e.target)}>
+                <button name="Compile/Run" id="CompileRun" className='text-success' onClick={(e) => compileCode(e.target)}>
                     <i className='bi bi-play-circle-fill fs-5'></i>
                     &nbsp;
                     Run
