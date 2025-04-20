@@ -73,7 +73,7 @@ const MainScreen = ({
                 />
             </Row>
             <Row style={{ borderTop: "1px solid black", height: "90%", maxHeight: "33vh" }}>
-                <OutputArea value='coolness is within us' />
+                <OutputArea error={IDEVars.outputContent.error} value={IDEVars.outputContent.value} />
             </Row>
             {/* Modals for Popups */}
             <DarkModeSettingsPopup

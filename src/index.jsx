@@ -30,6 +30,8 @@ if (isValidAutomergeUrl(rootDocUrl)) {
     handle = repo.create(() => ({
         fileName: "somethingcool.js",
         fileContent: "console.log('Something Cool')",
+        outputStatus: null,
+        outputContent: null
     }));
     console.log("Created new Doc : ", handle);
 }
@@ -37,7 +39,8 @@ if (isValidAutomergeUrl(rootDocUrl)) {
 if (CLIENT_SERVER_MODE) {
     repo.networkSubsystem.addNetworkAdapter(
         // new BrowserWebSocketClientAdapter("ws://172.17.48.162:3030/ws/thatroom?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqMTIzIiwiZXhwIjoxNzQ0OTgzODk4fQ.Aj1vieiMwtS4rsh3GFcjxdYHtbWGXXXyiSJGf-3onI0", 300), 
-        new BrowserWebSocketClientAdapter("wss://sync.automerge.org"),
+        // new BrowserWebSocketClientAdapter("wss://sync.automerge.org"),
+        new BrowserWebSocketClientAdapter("ws://13.203.199.13/sync/ws"),
     )
 }
 // Assume P2P mode if not Client Server

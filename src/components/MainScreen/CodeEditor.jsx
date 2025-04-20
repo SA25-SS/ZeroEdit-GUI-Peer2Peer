@@ -6,7 +6,7 @@ import Editor from '@monaco-editor/react';
 import {LANGUAGES} from "../../utils/constants";
 
 const CodeEditor = ({ editorThemeDark = false, IDEVars }) => {
-    const [name, ext] = IDEVars.fileName.value.split(/\.(?=[^\.]+$)/);
+    const ext = IDEVars.fileName.ext;
     const editorRef = useRef(null);
 
     const handleEditorChange = (content) => {
