@@ -5,15 +5,69 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+import CryptoJS from 'crypto-js';
+
+import { clearAuthToken } from './utils/storage';
+
 const RegisterBox = () => {
+
   const navigate = useNavigate();
 
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
-    navigate('/login'); // Navigate to the /login route
+
+    // Collect form data
+    const fullName = event.target.formFullName.value;
+    const username = event.target.formUsername.value;
+    const age = event.target.formAge.value;
+    const email = event.target.formEmail.value;
+    const password = event.target.formPassword.value;
+    const confirmPassword = event.target.formConfirmPassword.value;
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    // Hash the password using SHA-256
+    // const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+
+    try {
+      // Send registration data to the backend
+      const response = await fetch('http://15.207.110.230/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: fullName,
+          username,
+          age,
+          email,
+          password: password, // Send the hashed password
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Registration successful:', data);
+        alert('Registration successful. Redirecting to login...');
+        navigate('/login'); // Navigate to the login page
+      } else {
+        const errorData = await response.json();
+        console.error('Registration failed:', errorData.message);
+        alert(`Registration failed: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
+
   return (
     <div style={{ backgroundColor: '#eef4fa', minHeight: '100vh' }}>
+      {clearAuthToken()}
       <Container
         className="d-flex justify-content-center align-items-center"
         style={{ minHeight: '100vh' }}

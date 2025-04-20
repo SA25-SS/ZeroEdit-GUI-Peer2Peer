@@ -1,9 +1,10 @@
 // src/utils/storage.js
 
 // Read from localStorage
-export const loadSaved = (key) => localStorage.getItem(key);
-export const save = (key, value) => localStorage.setItem(key, value);
-
+const loadSaved = (key) => localStorage.getItem(key);
+const save = (key, value) => localStorage.setItem(key, value);
+const clear = (key) => localStorage.removeItem(key)
+const reset = (key) => localStorage.clear()
 
 // Read/Write Theme from localStorage
 export const loadSavedGlobalTheme = () => loadSaved('GlobalThemeDark') === 'true';
@@ -16,3 +17,7 @@ export const saveEditorTheme = (editorThemeDark) => save('EditorThemeDark', edit
 export const loadSavedSettings = () => JSON.parse(loadSaved("settings"));;
 export const saveSettings = (settings) => save("settings", JSON.stringify(settings));
 
+// Read/Write auth.token
+export const loadSavedAuthToken = () => JSON.parse(loadSaved("auth.token"));;
+export const saveAuthToken = (token) => save("auth.token", JSON.stringify(token));
+export const clearAuthToken = () => clear("auth.token");

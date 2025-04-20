@@ -15,11 +15,18 @@ import React, { useEffect, useState } from 'react';
 import MainScreen from './components/MainScreen/MainScreen';
 import SideBar from './components/SideBar/SideBar';
 
-import { Text } from 'automerge'
+// import { Text } from 'automerge'
 import { useDocument } from '@automerge/automerge-repo-react-hooks';
-import { updateText } from '@automerge/automerge/next';
+// import { updateText } from '@automerge/automerge/next';
+
+import { loadSavedAuthToken } from './utils/storage'; 
+import { Navigate } from 'react-router-dom';
 
 function MainIDE({ DarkTheme, docUrl }) {
+    const authToken = loadSavedAuthToken();
+    if(!authToken){
+        return <Navigate to={"/login"} />;
+    }
     // const [fileName, _setFileName] = useState("somethingcool.js");
     // const [editorContent, _setEditorContent] = useState("console.log('Something Cool')");
     const [outputContent, setOutputContent] = useState("Something Cool");
