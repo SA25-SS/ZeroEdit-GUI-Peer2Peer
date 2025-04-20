@@ -12,6 +12,7 @@ import { RepoContext } from '@automerge/automerge-repo-react-hooks'
 
 import { Peer } from "peerjs";
 import { PeerjsNetworkAdapter } from "automerge-repo-network-peerjs";
+import { loadSavedUsername } from './utils/storage';
 
 const repo = new Repo({
     network: [],
@@ -21,17 +22,21 @@ const repo = new Repo({
 const CLIENT_SERVER_MODE = true;
 
 const rootDocUrl = `${document.location.hash.substring(1)}`;
+const userName = loadSavedUsername();
 
 let handle;
 if (isValidAutomergeUrl(rootDocUrl)) {
     handle = repo.find(rootDocUrl);
     console.log("Connected to Doc : ", handle);
+
 } else {
     handle = repo.create(() => ({
         fileName: "somethingcool.js",
         fileContent: "console.log('Something Cool')",
         outputStatus: null,
-        outputContent: null
+        outputContent: null,
+        owner: null,
+        activeUsers: []
     }));
     console.log("Created new Doc : ", handle);
 }
@@ -45,7 +50,7 @@ if (CLIENT_SERVER_MODE) {
 }
 // Assume P2P mode if not Client Server
 else {
-    const peer = new Peer(undefined, {
+    const peer = new Peer(userName, {
         host: '0.peerjs.com',
         port: 443,
         path: '/',
@@ -87,7 +92,7 @@ else {
 
 }
 
-const docUrl = document.location.hash = handle.url;
+const docUrl = handle.url;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

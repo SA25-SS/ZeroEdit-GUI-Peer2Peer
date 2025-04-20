@@ -63,7 +63,7 @@ const SideBar = ({ colSize = 2, DarkTheme, IDEVars, userName }) => {
         <Col xs={colSize} >
             <Toolbar globalThemeDark={DarkTheme.global.value} IDEVars={IDEVars} />
             <RecentFiles openFileName={IDEVars.fileName.value} />
-            <ActiveUsers handleOpenPermissions={handleOpenPermissions} selfUserName={userName}/>
+            <ActiveUsers handleOpenPermissions={handleOpenPermissions} selfUserName={userName} usersList={IDEVars.users.list} ownerUserName={IDEVars.users.owner}/>
             <SettingsButton handleClick={handleOpenSettings} />
 
             <PermissionsPopup

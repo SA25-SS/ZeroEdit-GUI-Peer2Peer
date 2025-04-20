@@ -31,9 +31,11 @@ function MainIDE({ DarkTheme, docUrl }) {
     // const [outputContent, _setOutputContent] = useState("Something Cool");
 
     // Automerge Doc
-    const [doc, changeDoc] = useDocument(docUrl);    
+    const [doc, changeDoc] = useDocument(docUrl);
     const authToken = loadSavedAuthToken();
     const currentUserName = loadSavedUsername();
+
+    document.location.hash = docUrl;
 
     useEffect(() => {
         const checkAuthToken = async () => {
@@ -58,6 +60,19 @@ function MainIDE({ DarkTheme, docUrl }) {
         checkAuthToken();
     }, [authToken]);
 
+
+    useEffect(() => {
+        if (!doc) return; // doc not ready yet
+
+        changeDoc(d => {
+            if (!d.owner) d.owner = currentUserName;
+
+            if (!d.activeUsers) d.activeUsers = [];
+            if (!d.activeUsers.includes(currentUserName))
+                d.activeUsers.push(currentUserName);
+        });
+    }, [doc, changeDoc, currentUserName]);
+
     const setFileName = (value) => {
         changeDoc((d) => { d.fileName = value; });
         // _setFileName(value);
@@ -68,13 +83,27 @@ function MainIDE({ DarkTheme, docUrl }) {
         // _setEditorContent(value);
     };
 
-    const setOutputContent = (value, error=false) => {
-        changeDoc((d) => { 
-            d.outputContent = value; 
+    const setOutputContent = (value, error = false) => {
+        changeDoc((d) => {
+            d.outputContent = value;
             d.outputStatus = error;
         });
         // _setOutputContent(value);
     };
+
+    const setOwner = (userName) => {
+        changeDoc(d => {
+            if (d.owner === null)
+                d.owner = userName;
+        })
+    }
+
+    const addUser = () => {
+        changeDoc(d => {
+            if (d && d?.activeUsers && !d?.activeUsers?.includes(currentUserName))
+                d.activeUsers.push(currentUserName)
+        })
+    }
 
     const IDEVars = {
         fileName: {
@@ -93,8 +122,16 @@ function MainIDE({ DarkTheme, docUrl }) {
             error: doc?.outputStatus ?? false,
             value: doc?.outputContent ?? "-",
             set: setOutputContent
+        },
+        users: {
+            owner: doc?.owner ?? currentUserName,
+            list: doc?.activeUsers ?? [currentUserName],
+            setOwner: setOwner,
+            add: addUser,
         }
     }
+
+    console.log(IDEVars.users)
 
     if (isAuthenticated === false) {
         return <Navigate to="/login" />; // Redirect to login if not authenticated
@@ -107,7 +144,7 @@ function MainIDE({ DarkTheme, docUrl }) {
     return (
         <Container className={`App px-0 ${(DarkTheme.global.value && "bg-dark text-light") || "bg-light text-dark"}`} fluid>
             <Row className='mx-0'>
-                <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} userName={currentUserName}/>
+                <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} userName={currentUserName} />
                 <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} />
             </Row>
         </Container>

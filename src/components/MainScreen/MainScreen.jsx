@@ -32,7 +32,8 @@ function DarkModeSettingsPopup({ show, handleClose, DarkTheme, docUrl }) {
 const MainScreen = ({
     colSize = 10,
     DarkTheme,
-    IDEVars
+    IDEVars,
+    docUrl
 }) => {
     // Dark Mode Settings Popup Modal Configuration
     const [darkModeSettingsPopup, setShowDarkModeSettingsPopup] = useState(false);
@@ -41,7 +42,7 @@ const MainScreen = ({
 
     // Share Link Popup Modal Configuration
     // const [shareLink, setShareLink] = useState(document.location.href);
-    const shareLink = document.location.href;
+    const shareLink = `${document.location.host}/#${docUrl}`;
     const [shareLinkPopup, setShowShareLinkPopup] = useState(false);
     const handleOpenShareLink = () => setShowShareLinkPopup(true);
     const handleCloseShareLink = () => setShowShareLinkPopup(false);
