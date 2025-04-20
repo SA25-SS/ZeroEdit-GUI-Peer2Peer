@@ -7,11 +7,12 @@ import { apiRequest } from "./api";
  * @param {string} stdin - The input for the code.
  * @returns {Promise<Object>} - The parsed JSON response.
  */
-export async function compile(language, code, stdin) {
+export async function compile(language, code, stdin, fileName) {
     const payload = {
-        language,
-        code,
-        stdin
+        language: language,
+        code: code,
+        stdin: stdin,
+        fname: fileName
     };
 
     const response = await apiRequest("/run-code", "POST", payload);
