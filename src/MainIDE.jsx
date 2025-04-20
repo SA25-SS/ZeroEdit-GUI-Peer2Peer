@@ -33,7 +33,7 @@ function MainIDE({ DarkTheme, docUrl }) {
     
     // Automerge Doc
     const [doc, changeDoc] = useDocument(docUrl);
-    
+    1
     const authToken = loadSavedAuthToken();
     
     useEffect(() => {
@@ -41,7 +41,8 @@ function MainIDE({ DarkTheme, docUrl }) {
             if (authToken) {
                 try {
                     const response = await verifyToken(authToken);
-                    if (response.ok) {
+                    let data = await response.json();
+                    if (data.status === 'success') {
                         setIsAuthenticated(true); // Token is valid
                     } else {
                         setIsAuthenticated(false); // Token is invalid

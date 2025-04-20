@@ -1,7 +1,6 @@
 import { clearAuthToken, saveAuthToken } from "./storage";
 import CryptoJS from "crypto-js";
 
-
 const AUTH_API_BASE = "http://15.207.110.230";
 
 export const verifyToken = async (token) => {
@@ -32,8 +31,7 @@ export const login = async ({ username, password }) => {
 
     try {
         const data = await response.json();
-        // console.log('Server response :', data);
-        if (data.status === 'error')
+        if (data.status !== 'success')
             throw Error(data.message)
 
         saveAuthToken(data.token);
@@ -46,9 +44,11 @@ export const login = async ({ username, password }) => {
     return true;
 }
 
-export const logout = async () => {
+
+export const logout = () => {
     clearAuthToken();
 }
+
 
 export const register = async ({ name, username, age, email, password }) => {
     const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
@@ -67,12 +67,16 @@ export const register = async ({ name, username, age, email, password }) => {
             }),
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Registration failed');
+        const data = await response.json();
+
+        if (response.ok) {
+            if(data.status !== 'success')
+                throw new Error(data.message || 'Registration failed');
+        }
+        else{
+            throw new Error(data.message || 'Registration failed');
         }
 
-        const data = await response.json();
         return data;
     } catch (error) {
         console.error('Registration failed:', error);
