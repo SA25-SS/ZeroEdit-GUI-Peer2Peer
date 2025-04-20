@@ -8,13 +8,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import CryptoJS from 'crypto-js';
 
 import { clearAuthToken } from './utils/storage';
+import { logout } from './utils/auth';
 
 const RegisterBox = () => {
 
   const navigate = useNavigate();
 
   const handleRegister = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     // Collect form data
     const fullName = event.target.formFullName.value;
@@ -30,44 +31,22 @@ const RegisterBox = () => {
       return;
     }
 
-    // Hash the password using SHA-256
-    // const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-
     try {
-      // Send registration data to the backend
-      const response = await fetch('http://15.207.110.230/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: fullName,
-          username,
-          age,
-          email,
-          password: password, // Send the hashed password
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Registration successful:', data);
+      // Call auth register function
+      await register({ name: fullName, username, age, email, password })
+      .then(()=>{
         alert('Registration successful. Redirecting to login...');
-        navigate('/login'); // Navigate to the login page
-      } else {
-        const errorData = await response.json();
-        console.error('Registration failed:', errorData.message);
-        alert(`Registration failed: ${errorData.message}`);
-      }
+        navigate('/login');
+      })
     } catch (error) {
-      console.error('Error during registration:', error);
-      alert('An error occurred. Please try again later.');
+      console.error('Registration failed:', error.message);
+      alert(`Registration failed: ${error.message}`);
     }
   };
 
   return (
     <div style={{ backgroundColor: '#eef4fa', minHeight: '100vh' }}>
-      {clearAuthToken()}
+      {logout()}
       <Container
         className="d-flex justify-content-center align-items-center"
         style={{ minHeight: '100vh' }}

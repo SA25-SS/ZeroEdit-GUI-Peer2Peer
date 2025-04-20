@@ -7,9 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import CryptoJS from 'crypto-js';
 
-import {clearAuthToken, saveAuthToken} from './utils/storage'
-
-import { login } from './utils/auth';
+import { login, logout } from './utils/auth';
 
 const LoginBox = () => {
     const navigate = useNavigate();
@@ -19,27 +17,11 @@ const LoginBox = () => {
 
         const username = event.target.formUsername.value;
         const password = event.target.formPassword.value;
-
-        const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
         
         try {
-            const response = await login({username, hashedPassword});
-
-            try {
-                const data = await response.json();
-                // console.log('Server response :', data);
-                if (data.status === 'error')
-                    throw Error(data.message)
-
-                saveAuthToken(data.token);
-
-                navigate('/'); // Navigate to the home route
-                // alert('Validated, successfully');
-            }
-            catch (error) {
-                console.error('Login failed:', error);
-                alert('Invalid username or password');
-            }
+            await login({username, password})
+            .then(() => navigate('/'))
+            // .catch(error => alert(error))
         } catch (error) {
             console.error('Error during login:', error);
             alert('An error occurred. Please try again later.');
@@ -48,7 +30,7 @@ const LoginBox = () => {
 
     return (
         <div style={{ backgroundColor: '#eef4fa', minHeight: '100vh' }}>
-            {clearAuthToken()}
+            {logout()}
             <Container
                 className="d-flex justify-content-center align-items-center"
                 style={{ minHeight: '100vh' }}
