@@ -61,16 +61,25 @@ function MainIDE({ DarkTheme, docUrl }) {
     }, [authToken]);
 
 
+    // Track presence: add current user on mount, remove on unmount
     useEffect(() => {
-        if (!doc) return; // doc not ready yet
+        if (!doc) return;
 
         changeDoc(d => {
             if (!d.owner) d.owner = currentUserName;
-
             if (!d.activeUsers) d.activeUsers = [];
-            if (!d.activeUsers.includes(currentUserName))
+            if (!d.activeUsers.includes(currentUserName)) {
                 d.activeUsers.push(currentUserName);
+            }
         });
+
+        return () => {
+            changeDoc(d => {
+                if (d.activeUsers) {
+                    d.activeUsers = d.activeUsers.filter(u => u !== currentUserName);
+                }
+            });
+        };
     }, [doc, changeDoc, currentUserName]);
 
     const setFileName = (value) => {
