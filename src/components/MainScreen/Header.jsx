@@ -28,7 +28,7 @@ const Header = ({
         btnElement.disabled = true;
         
         let language = LANGUAGES[IDEVars.fileName.ext] || "javascript";
-        let compileResult = await compile(language, IDEVars.editorContent.value, "stdin");
+        let compileResult = await compile(language, IDEVars.editorContent.value, IDEVars.fileName, "stdin");
 
         if(compileResult.status === "success"){
             if(compileResult.error)
