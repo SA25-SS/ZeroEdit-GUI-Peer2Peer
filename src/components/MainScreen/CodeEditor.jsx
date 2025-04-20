@@ -14,7 +14,7 @@ const CodeEditor = ({ editorThemeDark = false, IDEVars }) => {
 
         if (editorRef.current) {
             const position = editorRef.current.getPosition();
-            console.log(`[${position.lineNumber} : ${position.column}] => ${content.split("\n")[position.lineNumber-1][position.column-2]}`);
+            // console.log(`[${position.lineNumber} : ${position.column}] => ${content.split("\n")[position.lineNumber-1][position.column-2]}`);
         }
     };
 
