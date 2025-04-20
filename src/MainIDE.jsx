@@ -36,28 +36,28 @@ function MainIDE({ DarkTheme, docUrl }) {
     1
     const authToken = loadSavedAuthToken();
 
-    // useEffect(() => {
-    //     const checkAuthToken = async () => {
-    //         if (authToken) {
-    //             try {
-    //                 const response = await verifyToken(authToken);
-    //                 let data = await response.json();
-    //                 if (data.status === 'success') {
-    //                     setIsAuthenticated(true); // Token is valid
-    //                 } else {
-    //                     setIsAuthenticated(false); // Token is invalid
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error verifying token:', error);
-    //                 setIsAuthenticated(false); // Handle errors gracefully
-    //             }
-    //         } else {
-    //             setIsAuthenticated(false); // No token found
-    //         }
-    //     };
+    useEffect(() => {
+        const checkAuthToken = async () => {
+            if (authToken) {
+                try {
+                    const response = await verifyToken(authToken);
+                    let data = await response.json();
+                    if (data.status === 'success') {
+                        setIsAuthenticated(true); // Token is valid
+                    } else {
+                        setIsAuthenticated(false); // Token is invalid
+                    }
+                } catch (error) {
+                    console.error('Error verifying token:', error);
+                    setIsAuthenticated(false); // Handle errors gracefully
+                }
+            } else {
+                setIsAuthenticated(false); // No token found
+            }
+        };
 
-    //     checkAuthToken();
-    // }, [authToken]);
+        checkAuthToken();
+    }, [authToken]);
 
     const setFileName = (value) => {
         changeDoc((d) => { d.fileName = value; });
