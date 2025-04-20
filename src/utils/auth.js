@@ -25,13 +25,12 @@ export const logout = () => {
 };
 
 export const register = async ({ name, username, age, email, password }) => {
-  const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
   const response = await apiRequest("/register", "POST", {
     name,
     username,
     age,
     email,
-    password: hashedPassword,
+    password: password,
   });
   const data = await response.json();
   if (data.status !== "success") throw new Error(data.message || "Registration failed");
