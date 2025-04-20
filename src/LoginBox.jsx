@@ -9,6 +9,8 @@ import CryptoJS from 'crypto-js';
 
 import {clearAuthToken, saveAuthToken} from './utils/storage'
 
+import { login } from './utils/auth';
+
 const LoginBox = () => {
     const navigate = useNavigate();
 
@@ -19,20 +21,9 @@ const LoginBox = () => {
         const password = event.target.formPassword.value;
 
         const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-        // const hashedPassword = "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f";
-        // console.log(hashedPassword);
         
         try {
-            const response = await fetch('http://15.207.110.230/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username:username,
-                    password:hashedPassword,
-                }),
-            });
+            const response = await login({username, hashedPassword});
 
             try {
                 const data = await response.json();

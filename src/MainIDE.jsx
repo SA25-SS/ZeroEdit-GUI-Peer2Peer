@@ -14,25 +14,49 @@ import React, { useEffect, useState } from 'react';
 // Importing components
 import MainScreen from './components/MainScreen/MainScreen';
 import SideBar from './components/SideBar/SideBar';
+import LoadingScreen from './LoadingScreen'
 
 // import { Text } from 'automerge'
 import { useDocument } from '@automerge/automerge-repo-react-hooks';
 // import { updateText } from '@automerge/automerge/next';
 
 import { loadSavedAuthToken } from './utils/storage'; 
+import { verifyToken } from './utils/auth'; 
 import { Navigate } from 'react-router-dom';
 
 function MainIDE({ DarkTheme, docUrl }) {
-    const authToken = loadSavedAuthToken();
-    if(!authToken){
-        return <Navigate to={"/login"} />;
-    }
+    const [isAuthenticated, setIsAuthenticated] = useState(null); // Track authentication status
+    
     // const [fileName, _setFileName] = useState("somethingcool.js");
     // const [editorContent, _setEditorContent] = useState("console.log('Something Cool')");
     const [outputContent, setOutputContent] = useState("Something Cool");
-
+    
     // Automerge Doc
     const [doc, changeDoc] = useDocument(docUrl);
+    
+    const authToken = loadSavedAuthToken();
+    
+    useEffect(() => {
+        const checkAuthToken = async () => {
+            if (authToken) {
+                try {
+                    const response = await verifyToken(authToken);
+                    if (response.ok) {
+                        setIsAuthenticated(true); // Token is valid
+                    } else {
+                        setIsAuthenticated(false); // Token is invalid
+                    }
+                } catch (error) {
+                    console.error('Error verifying token:', error);
+                    setIsAuthenticated(false); // Handle errors gracefully
+                }
+            } else {
+                setIsAuthenticated(false); // No token found
+            }
+        };
+
+        checkAuthToken();
+    }, [authToken]);
 
     const setFileName = (value) => {
         changeDoc((d) => { d.fileName = value; });
@@ -55,6 +79,14 @@ function MainIDE({ DarkTheme, docUrl }) {
             value: doc?.fileContent ?? "console.log('Something Cool')",
             set: setEditorContent
         },
+    }
+
+    if (isAuthenticated === false) {
+        return <Navigate to="/login" />; // Redirect to login if not authenticated
+    }
+
+    if (isAuthenticated === null) {
+        return <LoadingScreen DarkTheme={DarkTheme}/>; // Show a loading state while verifying the token
     }
 
     return (
