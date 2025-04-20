@@ -8,7 +8,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import CryptoJS from 'crypto-js';
 
 import { clearAuthToken } from './utils/storage';
-import { logout } from './utils/auth';
+import { logout, register } from './utils/auth';
 
 const RegisterBox = () => {
 
