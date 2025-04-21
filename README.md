@@ -35,4 +35,8 @@
 
 ---
 
-Would you like a **React-based code template** to kickstart the project? 🚀
+### **Running the code**
+1. `npm install`
+2. `npx vite --host 0.0.0.0` 
+
+---

@@ -43,7 +43,9 @@ const MainScreen = ({
 
     // Share Link Popup Modal Configuration
     // const [shareLink, setShareLink] = useState(document.location.href);
+
     const shareLink = `http://${document.location.host}?host=${userName}#${docUrl}`;
+
     const [shareLinkPopup, setShowShareLinkPopup] = useState(false);
     const handleOpenShareLink = () => setShowShareLinkPopup(true);
     const handleCloseShareLink = () => setShowShareLinkPopup(false);
