@@ -61,25 +61,16 @@ function MainIDE({ DarkTheme, docUrl }) {
     }, [authToken]);
 
 
-    // Track presence: add current user on mount, remove on unmount
     useEffect(() => {
-        if (!doc) return;
+        if (!doc) return; // doc not ready yet
 
         changeDoc(d => {
             if (!d.owner) d.owner = currentUserName;
-            if (!d.activeUsers) d.activeUsers = [];
-            if (!d.activeUsers.includes(currentUserName)) {
-                d.activeUsers.push(currentUserName);
-            }
-        });
 
-        return () => {
-            changeDoc(d => {
-                if (d.activeUsers) {
-                    d.activeUsers = d.activeUsers.filter(u => u !== currentUserName);
-                }
-            });
-        };
+            if (!d.activeUsers) d.activeUsers = [];
+            if (!d.activeUsers.includes(currentUserName))
+                d.activeUsers.push(currentUserName);
+        });
     }, [doc, changeDoc, currentUserName]);
 
     const setFileName = (value) => {
@@ -154,7 +145,7 @@ function MainIDE({ DarkTheme, docUrl }) {
         <Container className={`App px-0 ${(DarkTheme.global.value && "bg-dark text-light") || "bg-light text-dark"}`} fluid>
             <Row className='mx-0'>
                 <SideBar colSize={2} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} userName={currentUserName} />
-                <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} />
+                <MainScreen colSize={10} DarkTheme={DarkTheme} IDEVars={IDEVars} docUrl={docUrl} userName={currentUserName}/>
             </Row>
         </Container>
     );

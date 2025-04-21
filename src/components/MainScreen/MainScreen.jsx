@@ -16,6 +16,7 @@ import ConfirmModal from '../ConfirmBox';
 import { Row, Col, Modal } from 'react-bootstrap';
 
 import { downloadFile } from "../../utils/files"
+import { CLIENT_SERVER_MODE } from '../../utils/constants';
 
 import './MainScreen.css';
 
@@ -33,7 +34,8 @@ const MainScreen = ({
     colSize = 10,
     DarkTheme,
     IDEVars,
-    docUrl
+    docUrl, 
+    userName
 }) => {
     // Dark Mode Settings Popup Modal Configuration
     const [darkModeSettingsPopup, setShowDarkModeSettingsPopup] = useState(false);
@@ -42,7 +44,7 @@ const MainScreen = ({
 
     // Share Link Popup Modal Configuration
     // const [shareLink, setShareLink] = useState(document.location.href);
-    const shareLink = `${document.location.host}/#${docUrl}`;
+    const shareLink = `${document.location.host}/${CLIENT_SERVER_MODE?'':'?host='+userName}#${docUrl}`;
     const [shareLinkPopup, setShowShareLinkPopup] = useState(false);
     const handleOpenShareLink = () => setShowShareLinkPopup(true);
     const handleCloseShareLink = () => setShowShareLinkPopup(false);

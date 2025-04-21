@@ -14,12 +14,12 @@ import { Peer } from "peerjs";
 import { PeerjsNetworkAdapter } from "automerge-repo-network-peerjs";
 import { loadSavedUsername } from './utils/storage';
 
+import { CLIENT_SERVER_MODE } from './utils/constants';
+
 const repo = new Repo({
     network: [],
     storage: new IndexedDBStorageAdapter(),
 });
-
-const CLIENT_SERVER_MODE = true;
 
 const rootDocUrl = `${document.location.hash.substring(1)}`;
 const userName = loadSavedUsername();
@@ -65,6 +65,7 @@ else {
         console.log(`${document.location.origin}/?host=${SELF_PEER_ID}#${document.location.hash.substring(1)}`);
 
         const hostPerUrl = (new URLSearchParams(document.location.search)).get("host");
+        console.log(document.location.search);
         if (hostPerUrl && hostPerUrl !== SELF_PEER_ID) {
             console.log("dialing →", hostPerUrl);
             dial(hostPerUrl);
