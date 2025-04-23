@@ -35,7 +35,7 @@ function MainIDE({ DarkTheme, docUrl }) {
     const authToken = loadSavedAuthToken();
     const currentUserName = loadSavedUsername();
 
-    document.location.hash = docUrl;
+    // document.location.hash = docUrl;
 
     useEffect(() => {
         const checkAuthToken = async () => {
@@ -63,6 +63,7 @@ function MainIDE({ DarkTheme, docUrl }) {
 
     useEffect(() => {
         if (!doc) return; // doc not ready yet
+        if (!currentUserName) return; // doc not ready yet
 
         changeDoc(d => {
             if (!d.owner) d.owner = currentUserName;
@@ -131,7 +132,7 @@ function MainIDE({ DarkTheme, docUrl }) {
         }
     }
 
-    console.log(IDEVars.users)
+    // console.log(IDEVars.users)
 
     if (isAuthenticated === false) {
         return <Navigate to="/login" />; // Redirect to login if not authenticated

@@ -49,18 +49,18 @@ const peer = new Peer(userName, {
 let SELF_PEER_ID;
 
 peer.on('open', id => {
-    console.log('👉 My PeerJS ID:', id);
+    // console.log('👉 My PeerJS ID:', id);
     SELF_PEER_ID = id;
-    console.log(`${document.location.origin}/?host=${SELF_PEER_ID}#${document.location.hash.substring(1)}`);
+    // console.log(`${document.location.origin}/?host=${SELF_PEER_ID}#${document.location.hash.substring(1)}`);
 
     const hostPerUrl = (new URLSearchParams(document.location.search)).get("host");
-    console.log(document.location.search);
     if (hostPerUrl && hostPerUrl !== SELF_PEER_ID) {
+        console.log("Host : "+hostPerUrl+" asking for connection.");
         console.log("dialing →", hostPerUrl);
         dial(hostPerUrl);
     }
     else {
-        console.log("No Host");
+        console.log("Hosting a new document for host : "+ SELF_PEER_ID);
     }
 })
 
